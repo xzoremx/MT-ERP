@@ -481,10 +481,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <thead>
                 <tr>
                 <th>ID_Modalidad</th>
-                <th>Servicio</th>
-                <th>Modalidad_Servicio</th>
-                <th>Producto</th>
-                <th>Modalidad_Producto</th>
+                <th>Nombre del Cliente</th>
+                <th>ID de Orden de Venta</th>
+                <th>Nombre del Responsable</th>
+                <th>Monto</th>
                 <th>fechasistema</th>
                 <th>Gestionar Registro</th>
                 </tr>
