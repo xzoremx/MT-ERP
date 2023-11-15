@@ -484,7 +484,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <th>Nombre del Cliente</th>
                 <th>ID de Orden de Venta</th>
                 <th>Nombre del Responsable</th>
-                <th>Monto</th>
+                <th>Monto Total</th>
                 <th>fechasistema</th>
                 <th>Gestionar Registro</th>
                 </tr>
