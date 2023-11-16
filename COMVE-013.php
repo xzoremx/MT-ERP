@@ -429,7 +429,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Gestión del Historial de órdenes de venta</h1>
+                    <h1>Gestión de Clientes y Proveedores</h1>
                 </div>
                 
             </div>
@@ -465,7 +465,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                             
                         </div>
-                                        <a class="btn btn-success btn-sm" href="COMVE-009-Agregar.php">
+                                        <a class="btn btn-success btn-sm" href="COMVE-013-Agregar.php">
                                             <i class="fas fa-plus"></i>
                                             Agregar
                                         </a>
@@ -478,38 +478,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 // Asegúrate de que la conexión a la base de datos se ha establecido correctamente
                 $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
 
-                if ($mysqli->connect_error) {
-                    die('Error de Conexión (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
-                }
+                  if ($mysqli->connect_error) {
+                      die('Error de Conexión (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
+                  }
 
-                include("conexion/database.php");
+                  include("conexion/database.php");
 
-                $total_registros = 0;
+                  $total_registros = 0;
 
-                $fecha = "";
+                  // Consulta SQL utilizando UNION
+                  $sql = "SELECT ID_Cliente, nombre, 'Cliente' as Tipo FROM cliente
+                          UNION
+                          SELECT ID_Proveedor, nombre_compañia, 'Proveedor' as Tipo FROM proveedores";
 
-                if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                    $fecha = $_POST["fecha"];
-                }
+                  $stmt = $mysqli->prepare($sql);
 
-                // Consulta SQL con filtro opcional
-                $sql = "SELECT * FROM ordenes_de_venta";
-                if (!empty($fecha)) {
-                    $sql .= " WHERE fecha = ?";
-                }
+                  if ($stmt) {
+                      $stmt->execute();
+                      $stmt->store_result();
+                      $total_registros = $stmt->num_rows;
+                      $stmt->bind_result($ID, $Nombre, $Tipo);
+                  }
 
-                $stmt = $mysqli->prepare($sql);
-
-                if ($stmt) {
-                    if (!empty($fecha)) {
-                        $stmt->bind_param("s", $fecha);
-                    }
-
-                    $stmt->execute();
-                    $stmt->store_result();
-                    $total_registros = $stmt->num_rows;
-                    $stmt->bind_result($ID_Ordenventa, $fecha, $ID_Cliente, $Nombre_del_Cliente, $Servicio, $Producto, $Tipo_de_Venta, $Cargo, $Estado, $fechasistema);
-                }
                 ?>
     <style>
         table {
@@ -536,17 +526,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <table id="listado" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID de Orden de Venta</th>
-                            <th>Fecha</th>
-                            <th>ID de Cliente</th>
-                            <th>Nombre del Cliente</th>
-                            <th>Servicio</th>
-                            <th>Producto</th>
-                            <th>Tipo de Venta</th>
-                            <th>Cargo</th>
-                            <th>Estado</th>
-                            <th>Fecha de Sistema</th>
-                            <th>Gestionar Orden</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Gestionar</th>
                           </tr>
                       </thead>
                   <tbody>
@@ -555,24 +538,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             while ($stmt->fetch()) {
                                 ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($ID_Ordenventa); ?></td>
-                                    <td><?php echo htmlspecialchars($fecha); ?></td>
-                                    <td><?php echo htmlspecialchars($ID_Cliente); ?></td>
-                                    <td><?php echo htmlspecialchars($Nombre_del_Cliente); ?></td>
-                                    <td><?php echo htmlspecialchars($Servicio); ?></td>
-                                    <td><?php echo htmlspecialchars($Producto); ?></td>
-                                    <td><?php echo htmlspecialchars($Tipo_de_Venta); ?></td>
-                                    <td><?php echo htmlspecialchars($Cargo); ?></td>
-                                    <td><?php echo htmlspecialchars($Estado); ?></td>
-                                    <td><?php echo htmlspecialchars($fechasistema); ?></td>
+                                    <td><?php echo htmlspecialchars($ID); ?></td>
+                                    <td><?php echo htmlspecialchars($Nombre); ?></td>
+                                    <td><?php echo htmlspecialchars($Tipo); ?></td>
                                     <td class="text-center">
                                         
-                                        <a class="btn btn-info btn-sm" href="COMVE-009-Editar.php?id=<?php echo $ID_Ordenventa; ?>" onclick="return confirm('¿Seguro que deseas editar este registro?')">
+                                        <a class="btn btn-info btn-sm" href="COMVE-013-Editar.php?id=<?php echo $ID; ?>" onclick="return confirm('¿Seguro que deseas editar este registro?')">
                                             <i class="fas fa-pencil-alt"></i>
                                             Editar
                                         </a>
 
-                                        <a class="btn btn-danger btn-sm" href="COMVE-009-Eliminar.php?id=<?php echo $ID_Ordenventa; ?>" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
+                                        <a class="btn btn-danger btn-sm" href="COMVE-013-Eliminar.php?id=<?php echo $ID; ?>" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
                                             <i class="fas fa-trash"></i>
                                             Eliminar
                                         </a>
