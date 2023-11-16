@@ -511,7 +511,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $stmt->bind_result($ID_Ordenventa, $fecha, $ID_Cliente, $Nombre_del_Cliente, $Servicio, $Producto, $Tipo_de_Venta, $Cargo, $Estado, $fechasistema);
                 }
                 ?>
-<style>
+    <style>
         table {
             width: 100%;
             border-collapse: collapse;

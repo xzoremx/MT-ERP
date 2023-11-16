@@ -456,24 +456,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h1>Registro de Ventas a Partir de Cotizaciones</h1>
                 <table class="styled-table">
                 <style>
-                        .styled-table {
-                            width: 100%;
-                            max-width: 1000px;
-                            margin: 0 auto;
-                            border-collapse: collapse;
-                        }
+                  table {
+                      width: 100%;
+                      border-collapse: collapse;
+                      background-color: #E6F7FF; /* Color de fondo azul claro para toda la tabla */
+                  }
 
-                        .styled-table th, .styled-table td {
-                            border: 5px solid #ddd;
-                            padding: 9px;
-                            text-align: left;
-                        }
+                  th, td {
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                      background-color: #ffffff; /* Color de fondo blanco para todas las filas de datos */
+                  }
 
-                        .styled-table th {
-                            background-color: #f2f2f2;
-                        }
-                    </style>
-                    </style>
+                  th {
+                      background-color: #3399FF; /* Color de fondo azul para los encabezados */
+                      color: white; /* Color de texto blanco para los encabezados */
+                  }
+              </style>
     <!-- Aquí comienza el formulario para agregar una nueva orden en la tabla existente -->
     <form method="post">
         <table id="listado" class="table table-bordered table-striped">
