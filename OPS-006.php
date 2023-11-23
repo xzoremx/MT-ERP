@@ -6,6 +6,34 @@ if (isset($_SESSION["USUARIO"])) {
     $nombreCompleto = "Invitado"; // Puedes establecer un valor predeterminado si el usuario no ha iniciado sesión
 }
 ?>
+<?php
+$mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
+
+if ($mysqli->connect_error) {
+    die('Error de Conexión (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Procesa los datos del formulario de inserción y agrega el mantenimiento a la base de datos
+    $nuevos_datos = $_POST; // Obtén los nuevos datos del formulario
+
+    // Realiza la inserción en la base de datos
+    $sql = "INSERT INTO mantenimiento (ID_Vehiculo, Modelo_Vehiculo, Empresa_Mantenimiento, Actividad_Mantenimiento, Fechasistema, Fecha_Inicio, Fecha_Fin, Estado) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?)";
+    $stmt = $mysqli->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("sssssss", $nuevos_datos['ID_Vehiculo'], $nuevos_datos['Modelo_Vehiculo'], $nuevos_datos['Empresa_Mantenimiento'], $nuevos_datos['Actividad_Mantenimiento'], $nuevos_datos['Fecha_Inicio'], $nuevos_datos['Fecha_Fin'], $nuevos_datos['Estado']);
+
+        if ($stmt->execute()) {
+            // Redirige de nuevo a la página principal u otra página de tu elección
+            header("Location: OPS-006.php");
+            exit();
+        } else {
+            echo "Error al agregar el mantenimiento: " . $stmt->error;
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <!--
@@ -209,189 +237,233 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Áreas
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <li class="nav-item menu-open">
+               <li class="nav-item menu-open">
                   <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="nav-icon fas fa-th"></i>
                     <p>
-                     Comercial y Ventas
-                    <i class="right fas fa-angle-left"></i>
+                      Áreas
+                      <i class="right fas fa-angle-left"></i>
                     </p>
                   </a>
 
                   <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="COMVE-001.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
+                    <!-- Removed the extra <li> here -->
+                    <li class="nav-item">
+                    <a href="#" class="nav-link active" style="background-color: #4CAF50;">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Comercial y Ventas
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
+
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="COMVE-001.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
                             <p>Registros del Cliente</p>
-                        </a>
-                      </li>
+                          </a>
+                        </li>
 
-                      <li class="nav-item">
-                        <a href="COMVE-002.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Generación de Cotizaciones de servicio</p>
-                        </a>
-                      </li>
+                        <li class="nav-item">
+                        <a href="COMVE-002.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Generación de Cotizaciones de Servicio</p>
+                          </a>
+                        </li>
 
-    		            <li class="nav-item">
-                        <a href="COMVE-003.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Descuentos y Ofertas especiales</p>
-                        </a>
-                      </li>
+                        
+                        <li class="nav-item">
+                        <a href="COMVE-003.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Descuentos</p>
+                          </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                        <a href="COMVE-004.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Registro de Ventas p/ Cotz.</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-007.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Asignación de Mod. de Pago</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-008.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Programación de Encuestas</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-005.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Ordenes de Venta</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-009.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Ordenes de Venta</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-010.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Cotizaciones</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-011.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Cotizaciones</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-013.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Proveedores</p>
+                          </a>
+                        </li>
+
+                        <!-- Add other items as needed -->
+
+                      </ul>
+                    </li>
 
                     <li class="nav-item">
-                        <a href="COMVE-004.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Registro de Ventas a partir de cotizaciones</p>
-                        </a>
-                      </li>
+                    <a href="#" class="nav-link active" style="background-color: #428bca">            <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Operaciones
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
 
-    		            <li class="nav-item">
-                        <a href="COMVE-007.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Selección de la modalidad de pago</p>
-                        </a>
-                      </li>
-
-                    <li class="nav-item">
-                        <a href="COMVE-008.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Recopilación de Retroalimentación de Clientes</p>
-                        </a>
-                      </li>
+                      <ul class="nav nav-treeview">
 
                       <li class="nav-item">
-                        <a href="COMVE-005.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Consulta del historial de Ordenes de Venta</p>
-                        </a>
-                      </li>
-              
-                        <li class="nav-item">
-                          <a href="COMVE-009.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión del historial de Ordenes de Venta</p>
-                            </a>
+                        <a href="OPS-001.php" class="nav-link active" style="background-color: #ADD8E6;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Ordenes de Servicio</p>
+                          </a>
                         </li>
 
                         <li class="nav-item">
-                          <a href="COMVE-010.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Consulta del historial de Cotizaciones</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                          <a href="COMVE-011.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión del historial de Cotizaciones</p>
-                            </a>
-                        </li>
-
-
-
-                    </ul>
-                </li>
-              </li>
-
-              <li class="nav-item">
-                <li class="nav-item menu-open">
-                  <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                     Operaciones
-                    <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="OPS-005.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
+                        <a href="OPS-005.php" class="nav-link active" style="background-color: #ADD8E6;">
+                            <i class="fas fa-briefcase"></i>
                             <p>Atención a las Observaciones de los OC</p>
-                        </a>
-                      </li>
+                          </a>
+                        </li>
 
+                        <li class="nav-item">
+                        <a href="OPS-006.php" class="nav-link active" style="background-color: #ADD8E6;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de mantenimiento de vehículos</p>
+                          </a>
+                        </li>
+
+                        <!-- Add other items as needed -->
+
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                    <a href="#" class="nav-link active" style="background-color: #fe0000">            <i class="far fa-circle nav-icon"></i>
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Logística
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
+
+                      <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="OPS-006.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Mantenimiento de Vehículos</p>
-                        </a>
-                      </li>
+                        <a href="LOG-001.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Vehículos e Inv.</p>
+                          </a>
+                        </li>
 
-                    </ul>
+                        <li class="nav-item">
+                        <a href="LOG-002.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Asignación de Vehículos</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-003.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Generación de Ruta Opt.</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-004.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Registro de Recursos a Envío</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-005.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Almacenamiento de Muebles</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-006.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Almacenamiento</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-008.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Devoluciones</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-009.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Devoluciones</p>
+                          </a>
+                        </li>
+
+
+
+                        <!-- Add other items as needed -->
+
+                      </ul>
+                    </li>
+
+                  </ul>
                 </li>
-              </li>
-              
-              <li class="nav-item">
-                <li class="nav-item menu-open">
-                  <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
+
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
                     <p>
-                     Logística
-                    <i class="right fas fa-angle-left"></i>
+                      Extra Pages
+                      <span class="right badge badge-danger">New</span>
                     </p>
                   </a>
-
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="LOG-005.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Almacenamiento de Muebles</p>
-                        </a>
-                      </li>
-
-                      <li class="nav-item">
-                        <a href="LOG-006.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Consulta de Almacenamiento de Muebles</p>
-                        </a>
-                      </li>
-              
-                        <li class="nav-item">
-                          <a href="LOG-008.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión de Devoluciones de Muebles</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                          <a href="LOG-009.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Consulta del historial de devoluciones de Muebles</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-              </li>
-
-            </ul>
-          </li>
-          
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Extra Pages
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
+              </ul>
+            </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -417,62 +489,75 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-header -->
 
-
-    <!-- Main content -->
-<div class="content">
+<!-- Main content -->
+<section class="content">
     <div class="container-fluid">
-        <div class="row">
-          <!-- Tabla de Seguimiento de Mantenimiento de Vehiculos -->
-          <div class="col-lg-6 offset-lg-3"> <!-- Agrega offset-lg-3 para centrar -->
-            <h1 style="text-align: center;">Seguimiento de Mantenimiento de Vehiculos</h1>
-          </div>
-            <div class="col-lg-12">
-                <table class="styled-table">
-                  <style>
-                          .styled-table {
-                              width: 100%;
-                              max-width: 1000px;
-                              margin: 0 auto;
-                              border-collapse: collapse;
-                          }
+        <div class="row justify-content-center">
+            <div class="col-md">
 
-                          .styled-table th, .styled-table td {
-                              border: 5px solid #ddd;
-                              padding: 9px;
-                              text-align: left;
-                          }
+                <!-- Tarjeta de Registro de Mantenimiento con estilo -->
+                <div class="card mx-auto" style="width: 75%;">
+                    <div class="card-body border border-primary border-3">
+                        <form method="post">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="ID_Vehiculo" class="form-label">ID Vehículo:</label>
+                                    <input type="text" class="form-control mx-auto" id="ID_Vehiculo" name="ID_Vehiculo" style="width: 665px;">
+                                </div>
+                                <div class="col">
+                                    <label for="Modelo_Vehiculo" class="form-label">Modelo Vehículo:</label>
+                                    <input type="text" class="form-control mx-auto" id="Modelo_Vehiculo" name="Modelo_Vehiculo" style="width: 665px;">
+                                </div>
+                            </div>
 
-                          .styled-table th {
-                              background-color: #f2f2f2;
-                          }
-                  </style>
-                    <tr>
-                        <td>ID_Vehiculo:</td>
-                        <td><input type="text" placeholder="" maxlength="5"></td>
-                        <td>Documentacion Adjunta:</td>
-                        <td><input type="text" placeholder="" maxlength="5"></td>
-                    </tr>
-                    <tr>
-                        <td>Detalle del Vehiculo:</td>
-                        <td><input type="text" placeholder="" maxlength="30"></td>
-                        <td>Estado del Vehiculo:</td>
-                        <td><input type="text" placeholder="" maxlength="30"></td>
-                    </tr>
-                    <tr>
-                        <td>Proovedor del mantenimiento:</td>
-                        <td><input type="text" placeholder="" maxlength="30"></td>
-                    </tr>
-                    <tr>
-                        <td>Fecha del mantenimiento:</td>
-                        <td><input type="text" placeholder="" maxlength="40"></td>
-                    </tr>
-                    <tr>
-                        <td>Tipo de mantenimiento:</td>
-                        <td><input type="text" placeholder="" maxlength="9"></td>                      
-                    </tr>                 
-                </table>
-                
-                <!-- Fin de la Tabla de Registro del Cliente con estilo -->               
+                            <div class="mb-3">
+                                <label for="Empresa_Mantenimiento" class="form-label">Empresa de Mantenimiento:</label>
+                                <input type="text" class="form-control mx-auto" id="Empresa_Mantenimiento" name="Empresa_Mantenimiento" style="width: 1300px;">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="Actividad_Mantenimiento" class="form-label">Actividad de Mantenimiento:</label>
+                                <input type="text" class="form-control mx-auto" id="Actividad_Mantenimiento" name="Actividad_Mantenimiento" style="width: 1300px;">
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="Fecha_Inicio" class="form-label">Fecha de Inicio:</label>
+                                    <input type="date" class="form-control mx-auto" id="Fecha_Inicio" name="Fecha_Inicio" style="width: 500px;">
+                                </div>
+                                <div class="col">
+                                    <label for="Fecha_Fin" class="form-label">Fecha de Fin:</label>
+                                    <input type="date" class="form-control mx-auto" id="Fecha_Fin" name="Fecha_Fin" style="width: 500px;">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="Estado" class="form-label">Estado de Mantenimiento:</label>
+                                <input type="text" class="form-control mx-auto" id="Estado" name="Estado" style="width: 200px;">
+                            </div>
+
+                            <button class="btn btn-success" type="button" onclick="confirmarRegistro()">
+                                Actualizar Mantenimiento
+                            </button>
+
+                            <div id="confirmacion" style="display: none;">
+                                <p>¿Desea realmente agregar este Registro de mantenimiento?</p>
+                                <button onclick="registrarMantenimiento()">Sí</button>
+                                <button onclick="cancelarRegistro()">No</button>
+                            </div>
+                            <div id="exito" style="display: none;">
+                                <p>Mantenimiento registrado con éxito.</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Fin de la Tarjeta de Registro de Mantenimiento con estilo -->
+            </div>
+        </div>
+    </div>
+</section>
+
             </div>
             <!-- /.col-md-6-->
 
@@ -483,23 +568,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- /.content -->
 
+
 <script>
-// Agregar manejo de eventos al botón "Guardar"
-document.getElementById('guardarBtn').addEventListener('click', function() {
-    // Mostrar una ventana de confirmación
-    var confirmacion = confirm("¿Desea guardar los datos del cliente?");
+function confirmarRegistro() {
+    document.getElementById("confirmacion").style.display = "block";
+}
 
-    if (confirmacion) {
-        // Aquí puedes agregar la lógica para guardar los datos
-        alert("Datos guardados con éxito.");
-    }
-});
+function cancelarRegistro() {
+    document.getElementById("confirmacion").style.display = "none";
+}
 
-// Agregar manejo de eventos al botón "Regresar"
-document.getElementById('regresarBtn').addEventListener('click', function() {
-    // Redirigir a la página principal
-    window.location.href = "PaginaPrincipalUsuario.php";
-});
+function registrarCliente() {
+    // Aquí puedes agregar el código para enviar los datos del formulario y registrar el cliente en la base de datos
+    // Puedes mostrar un mensaje de éxito y redirigir si es necesario
+    document.getElementById("confirmacion").style.display = "none";
+    document.getElementById("exito").style.display = "block";
+}
 </script>
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2023 at 03:46 AM
+-- Generation Time: Nov 22, 2023 at 05:40 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,7 +34,7 @@ CREATE TABLE `cliente` (
   `login` varchar(40) DEFAULT NULL,
   `clave` varchar(30) DEFAULT NULL,
   `direccion` varchar(40) DEFAULT NULL,
-  `fechanac` date DEFAULT NULL,
+  `RUC` varchar(11) DEFAULT NULL,
   `fechasistema` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `celular` int(9) DEFAULT NULL,
   `correo` varchar(30) DEFAULT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `cliente` (
 -- Dumping data for table `cliente`
 --
 
-INSERT INTO `cliente` (`ID_Cliente`, `nombre`, `apellido`, `login`, `clave`, `direccion`, `fechanac`, `fechasistema`, `celular`, `correo`, `DNI`, `estado`) VALUES
+INSERT INTO `cliente` (`ID_Cliente`, `nombre`, `apellido`, `login`, `clave`, `direccion`, `RUC`, `fechasistema`, `celular`, `correo`, `DNI`, `estado`) VALUES
 (1, 'Maria', 'Colchado', 'maria1', '123456', 'av lima 33', '2001-03-01', '2023-10-29 00:18:47', 956219988, 'maria@gmail.com', 7777777, 'A'),
 (2, 'Jorge', 'Ruiz', 'jorge1', '123456', 'Av. Venezuela 115', '2001-03-02', '2023-10-29 00:18:47', 938897752, 'jorge@gmail.com', 7777778, 'A'),
 (3, 'Jesus', 'Huamani', 'jesus1', '123456', 'Av. Universitaria 556', '2002-03-03', '2023-10-29 00:18:47', 956218877, 'jesus@gmail.com', 7777775, 'A'),
@@ -58,7 +58,54 @@ INSERT INTO `cliente` (`ID_Cliente`, `nombre`, `apellido`, `login`, `clave`, `di
 (9, 'Eduardo', 'Guerra', NULL, NULL, 'Av. San Luis 495', '1998-10-03', '2023-10-29 01:14:11', 956218855, 'eduardo@gmail.com', 77889966, 'A'),
 (10, 'Diego', 'Hernandez', NULL, NULL, 'Av. Ica 485', '2002-05-06', '2023-10-29 01:18:14', 956884422, 'diego@gmail.com', 956223366, 'A'),
 (11, 'James', 'Correa', NULL, NULL, 'Av. Colombia 152', '2001-03-05', '2023-10-29 01:18:20', 956221144, 'james@gmail.com', 77885520, 'A'),
-(12, 'Miguel Angel', 'Herrnandez', NULL, NULL, 'Av. Universitaria 160', '1995-05-01', '2023-10-29 01:18:26', 956118899, 'angel@gmail.com', 88552211, 'A');
+(12, 'Miguel Angel', 'Herrnandez', NULL, NULL, 'Av. Universitaria 160', '1995-05-01', '2023-10-29 01:18:26', 956118899, 'angel@gmail.com', 88552211, 'A'),
+(33, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 21:58:52', NULL, NULL, NULL, NULL),
+(34, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 21:59:07', NULL, NULL, NULL, NULL),
+(35, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 22:03:48', NULL, NULL, NULL, NULL),
+(36, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 22:08:48', NULL, NULL, NULL, NULL),
+(37, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 22:10:30', NULL, NULL, NULL, NULL),
+(38, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 22:11:41', NULL, NULL, NULL, NULL),
+(39, 'Renato', 'Huamani', NULL, NULL, 'Jiron Galicia 356B - Pueblo Libre', '', '2023-11-21 22:11:53', 0, '', 0, 'P'),
+(40, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 22:12:13', NULL, NULL, NULL, NULL),
+(41, NULL, NULL, NULL, NULL, NULL, NULL, '2023-11-21 22:13:32', NULL, NULL, NULL, NULL),
+(42, 'maria', 'perez', NULL, NULL, 'Av. Lima', '12131231', '2023-11-21 22:14:05', 123312312, 'maria@gmail.com', 797849, 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `conductor`
+--
+
+CREATE TABLE `conductor` (
+  `ID_Conductor` int(11) NOT NULL,
+  `Nombre_Conductor` varchar(255) DEFAULT NULL,
+  `Apellido_Conductor` varchar(255) DEFAULT NULL,
+  `DNI` int(11) DEFAULT NULL,
+  `ID_Licencia` int(11) DEFAULT NULL,
+  `Celular` int(9) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cotizacionesxproductos`
+--
+
+CREATE TABLE `cotizacionesxproductos` (
+  `ID_Cotizacion` int(11) NOT NULL,
+  `ID_Producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cotizacionesxservicios`
+--
+
+CREATE TABLE `cotizacionesxservicios` (
+  `ID_Cotizacion` int(11) NOT NULL,
+  `ID_Servicio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -176,6 +223,24 @@ INSERT INTO `gestion_almacen` (`ID_ME`, `fecha`, `ID_Cliente`, `Nombre de Client
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mantenimiento`
+--
+
+CREATE TABLE `mantenimiento` (
+  `ID_Mantenimiento` int(11) NOT NULL,
+  `ID_Vehiculo` int(11) DEFAULT NULL,
+  `Modelo_Vehiculo` varchar(255) DEFAULT NULL,
+  `Empresa_Mantenimiento` varchar(255) DEFAULT NULL,
+  `Actividad_Mantenimiento` varchar(255) DEFAULT NULL,
+  `Fechasistema` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `Fecha_Inicio` date DEFAULT NULL,
+  `Fecha_Fin` date DEFAULT NULL,
+  `Estado` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `modalidad_pago`
 --
 
@@ -261,18 +326,103 @@ INSERT INTO `ordenes_de_venta` (`ID_Ordenventa`, `fecha`, `ID_Cliente`, `Nombre 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ordenes_servicio`
+--
+
+CREATE TABLE `ordenes_servicio` (
+  `ID_OrdenServicio` int(11) NOT NULL,
+  `ID_Cliente` int(11) DEFAULT NULL,
+  `Fecha_Solicitud` date DEFAULT NULL,
+  `ID_Servicio` int(11) DEFAULT NULL,
+  `ID_Producto` int(11) DEFAULT NULL,
+  `Direccion_origen` varchar(255) DEFAULT NULL,
+  `Direccion_llegada` varchar(255) DEFAULT NULL,
+  `Fecha_Limite` date DEFAULT NULL,
+  `Estado` varchar(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ordenes_servicioxproductos`
+--
+
+CREATE TABLE `ordenes_servicioxproductos` (
+  `ID_OrdenServicio` int(11) NOT NULL,
+  `ID_Producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ordenes_servicioxservicios`
+--
+
+CREATE TABLE `ordenes_servicioxservicios` (
+  `ID_OrdenServicio` int(11) NOT NULL,
+  `ID_Servicio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ordenes_ventaxproductos`
+--
+
+CREATE TABLE `ordenes_ventaxproductos` (
+  `ID_Ordenventa` int(11) NOT NULL,
+  `ID_Producto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ordenes_ventaxservicios`
+--
+
+CREATE TABLE `ordenes_ventaxservicios` (
+  `ID_Ordenventa` int(11) NOT NULL,
+  `ID_Servicio` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productos`
+--
+
+CREATE TABLE `productos` (
+  `ID_Producto` int(11) NOT NULL,
+  `Nombre_Producto` varchar(255) DEFAULT NULL,
+  `Precio` decimal(10,2) DEFAULT NULL,
+  `Estado` varchar(1) DEFAULT NULL,
+  `cantidad` int(9) DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `proveedores`
 --
 
 CREATE TABLE `proveedores` (
   `ID_Proveedor` int(5) NOT NULL,
   `nombre_compañia` varchar(30) DEFAULT NULL,
-  `Ciudad` varchar(30) DEFAULT NULL,
+  `distrito` varchar(30) DEFAULT NULL,
   `direccion` varchar(40) DEFAULT NULL,
-  `celular` int(9) DEFAULT NULL,
+  `telefono` int(9) DEFAULT NULL,
   `correo` varchar(40) DEFAULT NULL,
   `estado` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `proveedores`
+--
+
+INSERT INTO `proveedores` (`ID_Proveedor`, `nombre_compañia`, `distrito`, `direccion`, `telefono`, `correo`, `estado`) VALUES
+(11223, 'Gloria S.A', 'San Miguel', 'Av. Venezuela 180', 956227710, 'gloriacontacto@gmail.com', 'A'),
+(55221, 'Mi Banco S.A', 'San Miguel', 'Av. Universitaria 110', 956211120, 'mibancocontacto@gmail.com', 'A');
 
 -- --------------------------------------------------------
 
@@ -305,6 +455,55 @@ INSERT INTO `registro_venta` (`ID_Ordenventa`, `ID_Cotizacion`, `ID_Responsable`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `respuesta`
+--
+
+CREATE TABLE `respuesta` (
+  `ID_Respuesta` int(5) NOT NULL,
+  `ID_OrdenCompra` int(11) DEFAULT NULL,
+  `ID_Cliente` int(11) DEFAULT NULL,
+  `Fecha_respuesta` date DEFAULT NULL,
+  `Nombre_Cliente` varchar(40) DEFAULT NULL,
+  `Respuesta` varchar(255) DEFAULT NULL,
+  `Via_Distribucion` varchar(1) DEFAULT NULL,
+  `ID_Responsable` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `servicios`
+--
+
+CREATE TABLE `servicios` (
+  `ID_Servicio` int(11) NOT NULL,
+  `Servicio` varchar(255) DEFAULT NULL,
+  `Detalle` varchar(255) DEFAULT NULL,
+  `Estado` varchar(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `traslados`
+--
+
+CREATE TABLE `traslados` (
+  `ID_Traslado` int(11) NOT NULL,
+  `Ruta` varchar(255) DEFAULT NULL,
+  `ID_Vehiculo` int(11) DEFAULT NULL,
+  `ID_Conductor` int(11) DEFAULT NULL,
+  `ID_Cliente` int(11) DEFAULT NULL,
+  `Fecha_Traslado` date DEFAULT NULL,
+  `Hora_Inicio` time DEFAULT NULL,
+  `Hora_Fin` time DEFAULT NULL,
+  `Estado` varchar(255) DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usuario`
 --
 
@@ -332,6 +531,33 @@ INSERT INTO `usuario` (`ID_Usuario`, `nombre`, `apellido`, `login`, `clave`, `di
 (3, 'Fernanda', 'Arteaga', 'fernanda123', '123456', 'Av. Universitaria 123', '2000-03-04', NULL, 956213344, 'fernanda123@gmail.com', 'A'),
 (4, 'Juan Diego', 'Mamani', 'juandiego123', '123456', 'Av. Venezuela 112', '2000-03-06', NULL, 956214455, 'juandiego123@gmail.com', 'A');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehiculos`
+--
+
+CREATE TABLE `vehiculos` (
+  `ID_Vehiculo` int(11) NOT NULL,
+  `Modelo_Vehiculo` varchar(255) DEFAULT NULL,
+  `Capacidad` int(11) DEFAULT NULL,
+  `ID_Conductor` int(11) DEFAULT NULL,
+  `Estado` varchar(25) DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL,
+  `ID_Responsable` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehiculosasignados`
+--
+
+CREATE TABLE `vehiculosasignados` (
+  `ID_OrdenServicio` int(11) NOT NULL,
+  `ID_Vehiculo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -341,6 +567,26 @@ INSERT INTO `usuario` (`ID_Usuario`, `nombre`, `apellido`, `login`, `clave`, `di
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`ID_Cliente`);
+
+--
+-- Indexes for table `conductor`
+--
+ALTER TABLE `conductor`
+  ADD PRIMARY KEY (`ID_Conductor`);
+
+--
+-- Indexes for table `cotizacionesxproductos`
+--
+ALTER TABLE `cotizacionesxproductos`
+  ADD PRIMARY KEY (`ID_Cotizacion`,`ID_Producto`),
+  ADD KEY `ID_Producto` (`ID_Producto`);
+
+--
+-- Indexes for table `cotizacionesxservicios`
+--
+ALTER TABLE `cotizacionesxservicios`
+  ADD PRIMARY KEY (`ID_Cotizacion`,`ID_Servicio`),
+  ADD KEY `ID_Servicio` (`ID_Servicio`);
 
 --
 -- Indexes for table `cotizacion_servicio`
@@ -376,6 +622,13 @@ ALTER TABLE `gestion_almacen`
   ADD KEY `fk_cliente_gestion` (`ID_Cliente`);
 
 --
+-- Indexes for table `mantenimiento`
+--
+ALTER TABLE `mantenimiento`
+  ADD PRIMARY KEY (`ID_Mantenimiento`),
+  ADD KEY `ID_Vehiculo` (`ID_Vehiculo`);
+
+--
 -- Indexes for table `modalidad_pago`
 --
 ALTER TABLE `modalidad_pago`
@@ -396,6 +649,48 @@ ALTER TABLE `ordenes_de_venta`
   ADD KEY `fk_cliente_ordenes_de_venta` (`ID_Cliente`);
 
 --
+-- Indexes for table `ordenes_servicio`
+--
+ALTER TABLE `ordenes_servicio`
+  ADD PRIMARY KEY (`ID_OrdenServicio`),
+  ADD KEY `ID_Servicio` (`ID_Servicio`),
+  ADD KEY `ID_Producto` (`ID_Producto`);
+
+--
+-- Indexes for table `ordenes_servicioxproductos`
+--
+ALTER TABLE `ordenes_servicioxproductos`
+  ADD PRIMARY KEY (`ID_OrdenServicio`,`ID_Producto`),
+  ADD KEY `ID_Producto` (`ID_Producto`);
+
+--
+-- Indexes for table `ordenes_servicioxservicios`
+--
+ALTER TABLE `ordenes_servicioxservicios`
+  ADD PRIMARY KEY (`ID_OrdenServicio`,`ID_Servicio`),
+  ADD KEY `ID_Servicio` (`ID_Servicio`);
+
+--
+-- Indexes for table `ordenes_ventaxproductos`
+--
+ALTER TABLE `ordenes_ventaxproductos`
+  ADD PRIMARY KEY (`ID_Ordenventa`,`ID_Producto`),
+  ADD KEY `ID_Producto` (`ID_Producto`);
+
+--
+-- Indexes for table `ordenes_ventaxservicios`
+--
+ALTER TABLE `ordenes_ventaxservicios`
+  ADD PRIMARY KEY (`ID_Ordenventa`,`ID_Servicio`),
+  ADD KEY `ID_Servicio` (`ID_Servicio`);
+
+--
+-- Indexes for table `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`ID_Producto`);
+
+--
 -- Indexes for table `proveedores`
 --
 ALTER TABLE `proveedores`
@@ -408,10 +703,45 @@ ALTER TABLE `registro_venta`
   ADD PRIMARY KEY (`ID_Ordenventa`);
 
 --
+-- Indexes for table `respuesta`
+--
+ALTER TABLE `respuesta`
+  ADD PRIMARY KEY (`ID_Respuesta`);
+
+--
+-- Indexes for table `servicios`
+--
+ALTER TABLE `servicios`
+  ADD PRIMARY KEY (`ID_Servicio`);
+
+--
+-- Indexes for table `traslados`
+--
+ALTER TABLE `traslados`
+  ADD PRIMARY KEY (`ID_Traslado`),
+  ADD KEY `ID_Vehiculo` (`ID_Vehiculo`),
+  ADD KEY `ID_Conductor` (`ID_Conductor`),
+  ADD KEY `ID_Cliente` (`ID_Cliente`);
+
+--
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`ID_Usuario`);
+
+--
+-- Indexes for table `vehiculos`
+--
+ALTER TABLE `vehiculos`
+  ADD PRIMARY KEY (`ID_Vehiculo`),
+  ADD KEY `ID_Conductor` (`ID_Conductor`);
+
+--
+-- Indexes for table `vehiculosasignados`
+--
+ALTER TABLE `vehiculosasignados`
+  ADD PRIMARY KEY (`ID_OrdenServicio`,`ID_Vehiculo`),
+  ADD KEY `ID_Vehiculo` (`ID_Vehiculo`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -421,7 +751,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `ID_Cliente` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID_Cliente` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `devolucion_almacen`
@@ -452,6 +782,20 @@ ALTER TABLE `ordenes_de_venta`
 --
 
 --
+-- Constraints for table `cotizacionesxproductos`
+--
+ALTER TABLE `cotizacionesxproductos`
+  ADD CONSTRAINT `cotizacionesxproductos_ibfk_1` FOREIGN KEY (`ID_Cotizacion`) REFERENCES `ordenes_de_cotizacion` (`ID_Cotizacion`),
+  ADD CONSTRAINT `cotizacionesxproductos_ibfk_2` FOREIGN KEY (`ID_Producto`) REFERENCES `productos` (`ID_Producto`);
+
+--
+-- Constraints for table `cotizacionesxservicios`
+--
+ALTER TABLE `cotizacionesxservicios`
+  ADD CONSTRAINT `cotizacionesxservicios_ibfk_1` FOREIGN KEY (`ID_Cotizacion`) REFERENCES `ordenes_de_cotizacion` (`ID_Cotizacion`),
+  ADD CONSTRAINT `cotizacionesxservicios_ibfk_2` FOREIGN KEY (`ID_Servicio`) REFERENCES `servicios` (`ID_Servicio`);
+
+--
 -- Constraints for table `devolucion_almacen`
 --
 ALTER TABLE `devolucion_almacen`
@@ -465,6 +809,12 @@ ALTER TABLE `gestion_almacen`
   ADD CONSTRAINT `fk_cliente_gestion` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID_Cliente`);
 
 --
+-- Constraints for table `mantenimiento`
+--
+ALTER TABLE `mantenimiento`
+  ADD CONSTRAINT `mantenimiento_ibfk_1` FOREIGN KEY (`ID_Vehiculo`) REFERENCES `vehiculos` (`ID_Vehiculo`);
+
+--
 -- Constraints for table `ordenes_de_cotizacion`
 --
 ALTER TABLE `ordenes_de_cotizacion`
@@ -475,6 +825,62 @@ ALTER TABLE `ordenes_de_cotizacion`
 --
 ALTER TABLE `ordenes_de_venta`
   ADD CONSTRAINT `fk_cliente_ordenes_de_venta` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID_Cliente`);
+
+--
+-- Constraints for table `ordenes_servicio`
+--
+ALTER TABLE `ordenes_servicio`
+  ADD CONSTRAINT `ordenes_servicio_ibfk_1` FOREIGN KEY (`ID_Servicio`) REFERENCES `servicios` (`ID_Servicio`),
+  ADD CONSTRAINT `ordenes_servicio_ibfk_2` FOREIGN KEY (`ID_Producto`) REFERENCES `productos` (`ID_Producto`);
+
+--
+-- Constraints for table `ordenes_servicioxproductos`
+--
+ALTER TABLE `ordenes_servicioxproductos`
+  ADD CONSTRAINT `ordenes_servicioxproductos_ibfk_1` FOREIGN KEY (`ID_OrdenServicio`) REFERENCES `ordenes_servicio` (`ID_OrdenServicio`),
+  ADD CONSTRAINT `ordenes_servicioxproductos_ibfk_2` FOREIGN KEY (`ID_Producto`) REFERENCES `productos` (`ID_Producto`);
+
+--
+-- Constraints for table `ordenes_servicioxservicios`
+--
+ALTER TABLE `ordenes_servicioxservicios`
+  ADD CONSTRAINT `ordenes_servicioxservicios_ibfk_1` FOREIGN KEY (`ID_OrdenServicio`) REFERENCES `ordenes_servicio` (`ID_OrdenServicio`),
+  ADD CONSTRAINT `ordenes_servicioxservicios_ibfk_2` FOREIGN KEY (`ID_Servicio`) REFERENCES `servicios` (`ID_Servicio`);
+
+--
+-- Constraints for table `ordenes_ventaxproductos`
+--
+ALTER TABLE `ordenes_ventaxproductos`
+  ADD CONSTRAINT `ordenes_ventaxproductos_ibfk_1` FOREIGN KEY (`ID_Ordenventa`) REFERENCES `ordenes_de_venta` (`ID_Ordenventa`),
+  ADD CONSTRAINT `ordenes_ventaxproductos_ibfk_2` FOREIGN KEY (`ID_Producto`) REFERENCES `productos` (`ID_Producto`);
+
+--
+-- Constraints for table `ordenes_ventaxservicios`
+--
+ALTER TABLE `ordenes_ventaxservicios`
+  ADD CONSTRAINT `ordenes_ventaxservicios_ibfk_1` FOREIGN KEY (`ID_Ordenventa`) REFERENCES `ordenes_de_venta` (`ID_Ordenventa`),
+  ADD CONSTRAINT `ordenes_ventaxservicios_ibfk_2` FOREIGN KEY (`ID_Servicio`) REFERENCES `servicios` (`ID_Servicio`);
+
+--
+-- Constraints for table `traslados`
+--
+ALTER TABLE `traslados`
+  ADD CONSTRAINT `traslados_ibfk_1` FOREIGN KEY (`ID_Vehiculo`) REFERENCES `vehiculos` (`ID_Vehiculo`),
+  ADD CONSTRAINT `traslados_ibfk_2` FOREIGN KEY (`ID_Conductor`) REFERENCES `conductor` (`ID_Conductor`),
+  ADD CONSTRAINT `traslados_ibfk_3` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID_Cliente`);
+
+--
+-- Constraints for table `vehiculos`
+--
+ALTER TABLE `vehiculos`
+  ADD CONSTRAINT `vehiculos_ibfk_1` FOREIGN KEY (`ID_Conductor`) REFERENCES `conductor` (`ID_Conductor`);
+
+--
+-- Constraints for table `vehiculosasignados`
+--
+ALTER TABLE `vehiculosasignados`
+  ADD CONSTRAINT `vehiculosasignados_ibfk_1` FOREIGN KEY (`ID_OrdenServicio`) REFERENCES `ordenes_servicio` (`ID_OrdenServicio`),
+  ADD CONSTRAINT `vehiculosasignados_ibfk_2` FOREIGN KEY (`ID_Vehiculo`) REFERENCES `vehiculos` (`ID_Vehiculo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

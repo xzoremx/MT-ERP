@@ -463,152 +463,196 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
 
+    
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1>Gestión de la Disponibilidad de Vehículos e Inventario</h1>
+                </div>
+                
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
     <!-- Main content -->
     <section class="content">
-    <?php
-      // Realiza la conexión a la base de datos
-      $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
 
-      if ($mysqli->connect_error) {
-          die('Error de Conexión (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-      }
-      ?>
-      <?php
+        <!-- Default box -->
+        <div class="card">
 
-        // Función para extraer un valor de la base de datos
-        function extraer_valor($sql) {
-            // Realiza la conexión a la base de datos
-            $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
+            <div class="card-header">
+                <!-- FILTRO PERSONALIZADO -->
+                <form action="COMVE-009.php" method="post">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Fecha:</label>
+                                <input type="date" class="form-control" name="fecha" value="<?php echo $fecha; ?>">
+                            </div>
+                            <div class="col-6">
+                                <!-- ESPACIO PARA OTRO FILTRO -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <button id="submit" name="button" value="submit" class="btn btn-primary">Consultar</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+                                        
+            <!-- /.card-header -->
+            <?php
+                $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
 
-            if ($mysqli->connect_error) {
-                die('Error de Conexión (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-            }
+                if ($mysqli->connect_error) {
+                    die('Error de Conexión (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+                }
 
-            // Ejecuta la consulta SQL
-            $result = $mysqli->query($sql);
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    $fecha = $_POST["fecha"];
+                }
 
-            if (!$result) {
-                die("Error en la consulta: " . $mysqli->error);
-            }
+                // Consulta SQL para la tabla "vehiculos"
+                $sqlVehiculos = "SELECT ID_Vehiculo, Estado FROM vehiculos WHERE fecha_registro = ?";
+                $stmtVehiculos = $mysqli->prepare($sqlVehiculos);
 
-            // Obtiene el valor deseado de la consulta
-            $row = $result->fetch_assoc();
+                if ($stmtVehiculos) {
+                    $stmtVehiculos->bind_param("s", $fecha);
+                    $stmtVehiculos->execute();
+                    $stmtVehiculos->store_result();
+                    $total_registros_vehiculos = $stmtVehiculos->num_rows;
+                    $stmtVehiculos->bind_result($ID_Vehiculo, $Estado);
+                }
 
-            // Retorna el valor
-            return $row['valor'];
+                // Consulta SQL para la tabla "productos"
+                $sqlProductos = "SELECT Nombre_Producto, Cantidad FROM productos WHERE fecha_registro = ?";
+                $stmtProductos = $mysqli->prepare($sqlProductos);
+
+                if ($stmtProductos) {
+                    $stmtProductos->bind_param("s", $fecha);
+                    $stmtProductos->execute();
+                    $stmtProductos->store_result();
+                    $total_registros_productos = $stmtProductos->num_rows;
+                    $stmtProductos->bind_result($Nombre_Producto, $Cantidad);
+                }
+                ?>
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #E6F7FF; /* Color de fondo azul claro para toda la tabla */
         }
 
-        // Ahora puedes utilizar la función extraer_valor en tu código
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            background-color: #ffffff; /* Color de fondo blanco para todas las filas de datos */
+        }
 
-        ?>
+        th {
+            background-color: #3399FF; /* Color de fondo azul para los encabezados */
+            color: white; /* Color de texto blanco para los encabezados */
+        }
+    </style>
+                    
+               <!-- Tabla para mostrar vehiculos -->
+               <div class="card-body">
+                    <h2>Vehículos</h2>
+                    <table id="listadoVehiculos" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID de Vehículo</th>
+                                <th>Estado</th>
+                                <th>Actualizar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($total_registros_vehiculos > 0) {
+                                while ($stmtVehiculos->fetch()) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($ID_Vehiculo); ?></td>
+                                        <td><?php echo htmlspecialchars($Estado); ?></td>
+                                        <td class="text-center">
+                                            <!-- Agrega aquí el código para el botón "Actualizar" si es necesario -->
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                            } else {
+                                echo "<tr><td colspan=3>No existen registros</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
 
-
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Resumen de gestión</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="card-body">
-          <!-- CAJAS RESUMEN -->  
-          <div class="row">
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-primary">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT SUM(cargo) as valor FROM ordenes_de_venta WHERE estado = 'F'"; // and MONTH(fecha_documento) = MONTH(now())
-                  $total_ventas = extraer_valor($sql);
-                  ?>
-                  <h3>S/ <?php echo number_format($total_ventas,2); ?></h3>
-                  <p>Total de Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-social-usd"></i>
-                </div>
-                <a href="COMVE-005.php class="small-box-footer">Mas Ventas <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-green">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT COUNT(ID_Cliente) as valor FROM cliente WHERE estado = 'A'  ";
-                  $numero_clientes = extraer_valor($sql);
-                  ?>
-                  <h3><?php echo number_format($numero_clientes); ?></h3>
-                  <p>Total de Clientes</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-clipboard"></i>
-                </div>
-                <a href="COMVE-001.php" class="small-box-footer">Mas info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-yellow">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT COUNT(ID_Cotizacion) as valor FROM ordenes_de_cotizacion WHERE Estado = 'F'  ";
-                  $numero_productos = extraer_valor($sql);
-                  ?>
-                  <h3><?php echo number_format($numero_productos); ?></h3>
-                  <p>Total de Cotizaciones</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="COMVE-010.php" class="small-box-footer">Mas info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT SUM(Cargo) as valor FROM ordenes_de_cotizacion WHERE Estado = 'F'";
-                  $ganancia = extraer_valor($sql);
-                  ?>
-                  <h3>S/ <?php echo number_format($ganancia,2); ?></h3>
-                  <p>Ingresos por Ordenes de Cotizaciones</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-ios-cast"></i>
-                </div>
-                <a href="COMVE-010.php" class="small-box-footer">Mas info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
+            <!-- Tabla para mostrar productos -->
+<div class="card-body">
+    <h2>Productos</h2>
+    <table id="listadoProductos" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nombre del Producto</th>
+                <th>Cantidad</th>
+                <th>Actualizar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($total_registros_productos > 0) {
+                while ($stmtProductos->fetch()) {
+                    ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($Nombre_Producto); ?></td>
+                        <td><?php echo htmlspecialchars($Cantidad); ?></td>
+                        <td class="text-center">
+                            <!-- Agrega aquí el código para el botón "Actualizar" si es necesario -->
+                        </td>
+                    </tr>
+                <?php
+                }
+            } else {
+                echo "<tr><td colspan=3>No existen registros</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
     </section>
     <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+</div>
+<!-- /.content-wrapper -->
+                <!-- Fin de la Tabla de Registro del Cliente con estilo -->
+                 
+                <!-- Botones "Guardar" y "Regresar" -->
+              
+
+
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+
+
+
 
   </div>
   <!-- /.content-wrapper -->
-  
 
   
   <!-- Control Sidebar -->
@@ -642,4 +686,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 </body>
+
 </html>

@@ -463,152 +463,212 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
 
+    
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1>Gestión de Ordenes de Servicio</h1>
+                </div>
+                
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
     <!-- Main content -->
     <section class="content">
-    <?php
-      // Realiza la conexión a la base de datos
-      $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
 
-      if ($mysqli->connect_error) {
-          die('Error de Conexión (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-      }
-      ?>
-      <?php
+        <!-- Default box -->
+        <div class="card">
 
-        // Función para extraer un valor de la base de datos
-        function extraer_valor($sql) {
-            // Realiza la conexión a la base de datos
-            $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
+            <div class="card-header">
+                <!-- FILTRO PERSONALIZADO -->
+                <form action="OPS-001.php" method="post">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Fecha:</label>
+                                <input type="date" class="form-control" name="fecha" value="<?php echo $fecha; ?>">
+                            </div>
+                            <div class="col-6">
+                                <!-- ESPACIO PARA OTRO FILTRO -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <button id="submit" name="button" value="submit" class="btn btn-primary">Consultar</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                                        <a class="btn btn-success btn-sm" href="OPS-001-Agregar.php">
+                                            <i class="fas fa-plus"></i>
+                                            Agregar
+                                        </a>
+                    </div>
+                </form>
+            </div>
+                                        
+            <!-- /.card-header -->
+                <?php
+                // Asegúrate de que la conexión a la base de datos se ha establecido correctamente
+                $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
 
-            if ($mysqli->connect_error) {
-                die('Error de Conexión (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-            }
+                if ($mysqli->connect_error) {
+                    die('Error de Conexión (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
+                }
 
-            // Ejecuta la consulta SQL
-            $result = $mysqli->query($sql);
+                include("conexion/database.php");
 
-            if (!$result) {
-                die("Error en la consulta: " . $mysqli->error);
-            }
+                $total_registros = 0;
 
-            // Obtiene el valor deseado de la consulta
-            $row = $result->fetch_assoc();
+                $fecha = "";
 
-            // Retorna el valor
-            return $row['valor'];
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    $fecha = $_POST["fecha"];
+                }
+
+                // Consulta SQL con filtro opcional
+                $sql = "SELECT * FROM ordenes_servicio";
+                if (!empty($fecha)) {
+                    $sql .= " WHERE Fecha_Solicitud = ?";
+                }
+
+                $stmt = $mysqli->prepare($sql);
+
+                if ($stmt) {
+                    if (!empty($fecha)) {
+                        $stmt->bind_param("s", $fecha);
+                    }
+
+                    $stmt->execute();
+                    $stmt->store_result();
+                    $total_registros = $stmt->num_rows;
+                    $stmt->bind_result($ID_OrdenServicio, $ID_Cliente, $Fecha_Solicitud, $ID_Servicio, $ID_Producto, $Direccion_origen, $Direccion_llegada, $Fecha_Limite, $Estado);
+                }
+                ?>
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #E6F7FF; /* Color de fondo azul claro para toda la tabla */
         }
 
-        // Ahora puedes utilizar la función extraer_valor en tu código
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            background-color: #ffffff; /* Color de fondo blanco para todas las filas de datos */
+        }
 
-        ?>
+        th {
+            background-color: #3399FF; /* Color de fondo azul para los encabezados */
+            color: white; /* Color de texto blanco para los encabezados */
+        }
+    </style>
+                    
+               
+            <div class="card-body">
+                <table id="listado" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID de Orden de Servicio</th>
+                            <th>ID de Cliente</th>
+                            <th>Fecha de Solicitud</th>
+                            <th>Servicio</th>
+                            <th>Producto</th>
+                            <th>Direccion de Origen</th>
+                            <th>Direccion de Llegada</th>
+                            <th>Fecha Limite</th>
+                            <th>Estado</th>
+                            <th>Gestionar Orden</th>
+                          </tr>
+                      </thead>
+                  <tbody>
+                        <?php
+                        if ($total_registros > 0) { //Existen datos
+                            while ($stmt->fetch()) {
+                                ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($ID_OrdenServicio); ?></td>
+                                    <td><?php echo htmlspecialchars($ID_Cliente); ?></td>
+                                    <td><?php echo htmlspecialchars($Fecha_Solicitud); ?></td>
+                                    <td><?php echo htmlspecialchars($ID_Servicio); ?></td>
+                                    <td><?php echo htmlspecialchars($ID_Producto); ?></td>
+                                    <td><?php echo htmlspecialchars($Direccion_origen); ?></td>
+                                    <td><?php echo htmlspecialchars($Direccion_llegada); ?></td>
+                                    <td><?php echo htmlspecialchars($Fecha_Limite); ?></td>
+                                    <td><?php echo htmlspecialchars($Estado); ?></td>
+                                    <td class="text-center">
+                                        
+                                        <a class="btn btn-info btn-sm" href="OPS-001-Editar.php?id=<?php echo $ID_OrdenServicio; ?>" onclick="return confirm('¿Seguro que deseas editar este registro?')">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            Editar
+                                        </a>
 
+                                        <a class="btn btn-danger btn-sm" href="OPS-001-Eliminar.php?id=<?php echo $ID_OrdenServicio; ?>" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
+                                            <i class="fas fa-trash"></i>
+                                            Eliminar
+                                        </a>
 
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Resumen de gestión</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
+                                    </td>
+                                </tr>
+                        <?php
+                            }
+                        } else { //No existen datos
+                            echo "<tr><td colspan=7>No existen registros</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <div class="card-body">
-          <!-- CAJAS RESUMEN -->  
-          <div class="row">
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-primary">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT SUM(cargo) as valor FROM ordenes_de_venta WHERE estado = 'F'"; // and MONTH(fecha_documento) = MONTH(now())
-                  $total_ventas = extraer_valor($sql);
-                  ?>
-                  <h3>S/ <?php echo number_format($total_ventas,2); ?></h3>
-                  <p>Total de Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-social-usd"></i>
-                </div>
-                <a href="COMVE-005.php class="small-box-footer">Mas Ventas <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
+        <!-- /.card -->
 
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-green">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT COUNT(ID_Cliente) as valor FROM cliente WHERE estado = 'A'  ";
-                  $numero_clientes = extraer_valor($sql);
-                  ?>
-                  <h3><?php echo number_format($numero_clientes); ?></h3>
-                  <p>Total de Clientes</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-clipboard"></i>
-                </div>
-                <a href="COMVE-001.php" class="small-box-footer">Mas info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-yellow">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT COUNT(ID_Cotizacion) as valor FROM ordenes_de_cotizacion WHERE Estado = 'F'  ";
-                  $numero_productos = extraer_valor($sql);
-                  ?>
-                  <h3><?php echo number_format($numero_productos); ?></h3>
-                  <p>Total de Cotizaciones</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="COMVE-010.php" class="small-box-footer">Mas info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-
-            <div class="col-lg-5 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <?php 
-                  $sql = "SELECT SUM(Cargo) as valor FROM ordenes_de_cotizacion WHERE Estado = 'F'";
-                  $ganancia = extraer_valor($sql);
-                  ?>
-                  <h3>S/ <?php echo number_format($ganancia,2); ?></h3>
-                  <p>Ingresos por Ordenes de Cotizaciones</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-ios-cast"></i>
-                </div>
-                <a href="COMVE-010.php" class="small-box-footer">Mas info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
     </section>
     <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+</div>
+<!-- /.content-wrapper -->
+                <!-- Fin de la Tabla de Registro del Cliente con estilo -->
+                 
+                <!-- Botones "Guardar" y "Regresar" -->
+              
+
+
+            </div>
+            <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+
+<script>
+function confirmarRegistro() {
+    document.getElementById("confirmacion").style.display = "block";
+}
+
+function cancelarRegistro() {
+    document.getElementById("confirmacion").style.display = "none";
+}
+
+function registrarCliente() {
+    // Aquí puedes agregar el código para enviar los datos del formulario y registrar el cliente en la base de datos
+    // Puedes mostrar un mensaje de éxito y redirigir si es necesario
+    document.getElementById("confirmacion").style.display = "none";
+    document.getElementById("exito").style.display = "block";
+}
+</script>
+
+
 
   </div>
   <!-- /.content-wrapper -->
-  
 
   
   <!-- Control Sidebar -->
@@ -642,4 +702,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 </body>
+
 </html>

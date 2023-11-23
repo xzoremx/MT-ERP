@@ -237,190 +237,233 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Áreas
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <li class="nav-item menu-open">
+               <li class="nav-item menu-open">
                   <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="nav-icon fas fa-th"></i>
                     <p>
-                     Comercial y Ventas
-                    <i class="right fas fa-angle-left"></i>
+                      Áreas
+                      <i class="right fas fa-angle-left"></i>
                     </p>
                   </a>
 
                   <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="COMVE-001.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
+                    <!-- Removed the extra <li> here -->
+                    <li class="nav-item">
+                    <a href="#" class="nav-link active" style="background-color: #4CAF50;">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Comercial y Ventas
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
+
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="COMVE-001.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
                             <p>Registros del Cliente</p>
-                        </a>
-                      </li>
+                          </a>
+                        </li>
 
-                      <li class="nav-item">
-                        <a href="COMVE-002.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Generación de Cotizaciones de servicio</p>
-                        </a>
-                      </li>
+                        <li class="nav-item">
+                        <a href="COMVE-002.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Generación de Cotizaciones de Servicio</p>
+                          </a>
+                        </li>
 
-    		            <li class="nav-item">
-                        <a href="COMVE-003.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Descuentos y Ofertas especiales</p>
-                        </a>
-                      </li>
+                        
+                        <li class="nav-item">
+                        <a href="COMVE-003.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Descuentos</p>
+                          </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                        <a href="COMVE-004.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Registro de Ventas p/ Cotz.</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-007.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Asignación de Mod. de Pago</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-008.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Programación de Encuestas</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-005.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Ordenes de Venta</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-009.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Ordenes de Venta</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-010.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Cotizaciones</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-011.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Cotizaciones</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="COMVE-013.php" class="nav-link active" style="background-color: #c8e6c9;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Proveedores</p>
+                          </a>
+                        </li>
+
+                        <!-- Add other items as needed -->
+
+                      </ul>
+                    </li>
 
                     <li class="nav-item">
-                        <a href="COMVE-004.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Registro de Ventas a partir de cotizaciones</p>
-                        </a>
-                      </li>
+                    <a href="#" class="nav-link active" style="background-color: #428bca">            <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Operaciones
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
 
-
-    		            <li class="nav-item">
-                        <a href="COMVE-007.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Selección de la modalidad de pago</p>
-                        </a>
-                      </li>
-
-                    <li class="nav-item">
-                        <a href="COMVE-008.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Recopilación de Retroalimentación de Clientes</p>
-                        </a>
-                      </li>
+                      <ul class="nav nav-treeview">
 
                       <li class="nav-item">
-                        <a href="COMVE-005.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Consulta del historial de Ordenes de Venta</p>
-                        </a>
-                      </li>
-              
-                        <li class="nav-item">
-                          <a href="COMVE-009.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión del historial de Ordenes de Venta</p>
-                            </a>
+                        <a href="OPS-001.php" class="nav-link active" style="background-color: #ADD8E6;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Ordenes de Servicio</p>
+                          </a>
                         </li>
 
                         <li class="nav-item">
-                          <a href="COMVE-010.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Consulta del historial de Cotizaciones</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                          <a href="COMVE-011.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión del historial de Cotizaciones</p>
-                            </a>
-                        </li>
-
-
-
-                    </ul>
-                </li>
-              </li>
-
-              <li class="nav-item">
-                <li class="nav-item menu-open">
-                  <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                     Operaciones
-                    <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="OPS-005.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
+                        <a href="OPS-005.php" class="nav-link active" style="background-color: #ADD8E6;">
+                            <i class="fas fa-briefcase"></i>
                             <p>Atención a las Observaciones de los OC</p>
-                        </a>
-                      </li>
+                          </a>
+                        </li>
 
+                        <li class="nav-item">
+                        <a href="OPS-006.php" class="nav-link active" style="background-color: #ADD8E6;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de mantenimiento de vehículos</p>
+                          </a>
+                        </li>
+
+                        <!-- Add other items as needed -->
+
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                    <a href="#" class="nav-link active" style="background-color: #fe0000">            <i class="far fa-circle nav-icon"></i>
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Logística
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
+
+                      <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="OPS-006.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Mantenimiento de Vehículos</p>
-                        </a>
-                      </li>
+                        <a href="LOG-001.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Vehículos e Inv.</p>
+                          </a>
+                        </li>
 
-                    </ul>
+                        <li class="nav-item">
+                        <a href="LOG-002.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Asignación de Vehículos</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-003.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Generación de Ruta Opt.</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-004.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Registro de Recursos a Envío</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-005.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Almacenamiento de Muebles</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-006.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Almacenamiento</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-008.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Gestión de Devoluciones</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a href="LOG-009.php" class="nav-link active" style="background-color: #ffdfd4;">
+                            <i class="fas fa-briefcase"></i>
+                            <p>Historial de Devoluciones</p>
+                          </a>
+                        </li>
+
+
+
+                        <!-- Add other items as needed -->
+
+                      </ul>
+                    </li>
+
+                  </ul>
                 </li>
-              </li>
-              
-              <li class="nav-item">
-                <li class="nav-item menu-open">
-                  <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
+
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
                     <p>
-                     Logística
-                    <i class="right fas fa-angle-left"></i>
+                      Extra Pages
+                      <span class="right badge badge-danger">New</span>
                     </p>
                   </a>
-
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="LOG-005.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Almacenamiento de Muebles</p>
-                        </a>
-                      </li>
-
-                      <li class="nav-item">
-                        <a href="LOG-006.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Consulta de Almacenamiento de Muebles</p>
-                        </a>
-                      </li>
-              
-                        <li class="nav-item">
-                          <a href="LOG-008.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión de Devoluciones de Muebles</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                          <a href="LOG-009.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Consulta del historial de devoluciones de Muebles</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-              </li>
-
-            </ul>
-          </li>
-          
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Extra Pages
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
+              </ul>
+            </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -446,34 +489,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-header -->
 
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            <div class="col-sm-12">
+                <h1>Programación de Encuestas</h1>
+                <h2 style="font-size: small;">Área Comercial y Ventas</h2>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
 
     <!-- Main content -->
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <!-- Tabla con estilo -->
-                <h1>Recopilación de Retroalimentaciones de Clientes</h1>
+                <!-- Tabla de Registro de Modalidad con estilo -->
                 <table class="styled-table">
                 <style>
-                        .styled-table {
-                            width: 100%;
-                            max-width: 1000px;
-                            margin: 0 auto;
-                            border-collapse: collapse;
-                        }
+                  table {
+                      width: 100%;
+                      border-collapse: collapse;
+                      background-color: #E6F7FF; /* Color de fondo azul claro para toda la tabla */
+                  }
 
-                        .styled-table th, .styled-table td {
-                            border: 5px solid #ddd;
-                            padding: 9px;
-                            text-align: left;
-                        }
+                  th, td {
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                      background-color: #ffffff; /* Color de fondo blanco para todas las filas de datos */
+                  }
 
-                        .styled-table th {
-                            background-color: #f2f2f2;
-                        }
-                    </style>
-                    </style>
+                  th {
+                      background-color: #3399FF; /* Color de fondo azul para los encabezados */
+                      color: white; /* Color de texto blanco para los encabezados */
+                  }
+              </style>
     <!-- Aquí comienza el formulario para agregar una nueva orden en la tabla existente -->
     <form method="post">
         <table id="listado" class="table table-bordered table-striped">

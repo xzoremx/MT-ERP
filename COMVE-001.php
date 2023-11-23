@@ -18,16 +18,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nuevos_datos = $_POST; // Obtén los nuevos datos del formulario
 
     // Realiza la inserción en la base de datos
-    $sql = "INSERT INTO cliente (nombre, apellido, direccion, fechanac, fechasistema, celular, correo, DNI, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO cliente (nombre, apellido, direccion, RUC, fechasistema, celular, correo, DNI, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $mysqli->prepare($sql);
 
     if ($stmt) {
-        $stmt->bind_param("sssssssss", $nuevos_datos['nombre'], $nuevos_datos['apellido'], $nuevos_datos['direccion'], $nuevos_datos['fechanac'], $nuevos_datos['fechasistema'], $nuevos_datos['celular'], $nuevos_datos['correo'], $nuevos_datos['DNI'], $nuevos_datos['estado']);
+        $stmt->bind_param("sssssssss", $nuevos_datos['nombre'], $nuevos_datos['apellido'], $nuevos_datos['direccion'], $nuevos_datos['RUC'], $nuevos_datos['fechasistema'], $nuevos_datos['celular'], $nuevos_datos['correo'], $nuevos_datos['DNI'], $nuevos_datos['estado']);
 
         if ($stmt->execute()) {
             // Redirige de nuevo a la página principal u otra página de tu elección
-            header("Location: COMVE-001.php");
-            exit();
+            //header("Location: COMVE-001.php");
+            //exit();
         } else {
             echo "Error al agregar la orden: " . $stmt->error;
         }
@@ -232,198 +232,239 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </div>
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Áreas
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
+<!-- Sidebar Menu -->
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link active">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+          Áreas
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
 
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <li class="nav-item menu-open">
-                  <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                     Comercial y Ventas
-                    <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
+      <ul class="nav nav-treeview">
+        <!-- Removed the extra <li> here -->
+        <li class="nav-item">
+        <a href="#" class="nav-link active" style="background-color: #4CAF50;">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Comercial y Ventas
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
 
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="COMVE-001.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Registros del Cliente</p>
-                        </a>
-                      </li>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="COMVE-001.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Registros del Cliente</p>
+              </a>
+            </li>
 
-                      <li class="nav-item">
-                        <a href="COMVE-002.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Generación de Cotizaciones de servicio</p>
-                        </a>
-                      </li>
+            <li class="nav-item">
+            <a href="COMVE-002.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Generación de Cotizaciones de Servicio</p>
+              </a>
+            </li>
 
-    		            <li class="nav-item">
-                        <a href="COMVE-003.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Descuentos y Ofertas especiales</p>
-                        </a>
-                      </li>
+            
+            <li class="nav-item">
+            <a href="COMVE-003.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Descuentos</p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+            <a href="COMVE-004.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Registro de Ventas p/ Cotz.</p>
+              </a>
+            </li>
 
-                    <li class="nav-item">
-                        <a href="COMVE-004.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Registro de Ventas a partir de cotizaciones</p>
-                        </a>
-                      </li>
+            <li class="nav-item">
+            <a href="COMVE-007.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Asignación de Mod. de Pago</p>
+              </a>
+            </li>
 
-   		             
+            <li class="nav-item">
+            <a href="COMVE-008.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Programación de Encuestas</p>
+              </a>
+            </li>
 
-    		            <li class="nav-item">
-                        <a href="COMVE-007.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Selección de la modalidad de pago</p>
-                        </a>
-                      </li>
+            <li class="nav-item">
+            <a href="COMVE-005.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Historial de Ordenes de Venta</p>
+              </a>
+            </li>
 
-                    <li class="nav-item">
-                        <a href="COMVE-008.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Recopilación de Retroalimentación de Clientes</p>
-                        </a>
-                      </li>
+            <li class="nav-item">
+            <a href="COMVE-009.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Ordenes de Venta</p>
+              </a>
+            </li>
 
-                      <li class="nav-item">
-                        <a href="COMVE-005.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Consulta del historial de Ordenes de Venta</p>
-                        </a>
-                      </li>
-              
-                        <li class="nav-item">
-                          <a href="COMVE-009.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión del historial de Ordenes de Venta</p>
-                            </a>
-                        </li>
+            <li class="nav-item">
+            <a href="COMVE-010.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Historial de Cotizaciones</p>
+              </a>
+            </li>
 
-                        <li class="nav-item">
-                          <a href="COMVE-010.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Consulta del historial de Cotizaciones</p>
-                            </a>
-                        </li>
+            <li class="nav-item">
+            <a href="COMVE-011.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Cotizaciones</p>
+              </a>
+            </li>
 
-                        <li class="nav-item">
-                          <a href="COMVE-011.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión del historial de Cotizaciones</p>
-                            </a>
-                        </li>
+            <li class="nav-item">
+            <a href="COMVE-013.php" class="nav-link active" style="background-color: #c8e6c9;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Proveedores</p>
+              </a>
+            </li>
 
+            <!-- Add other items as needed -->
 
+          </ul>
+        </li>
 
-                    </ul>
-                </li>
-              </li>
+        <li class="nav-item">
+        <a href="#" class="nav-link active" style="background-color: #428bca">            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Operaciones
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
 
-              <li class="nav-item">
-                <li class="nav-item menu-open">
-                  <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                     Operaciones
-                    <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
+          <ul class="nav nav-treeview">
 
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="OPS-005.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Atención a las Observaciones de los OC</p>
-                        </a>
-                      </li>
-
-                      <li class="nav-item">
-                        <a href="OPS-006.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Mantenimiento de Vehículos</p>
-                        </a>
-                      </li>
-
-                    </ul>
-                </li>
-              </li>
-              
-              <li class="nav-item">
-                <li class="nav-item menu-open">
-                  <a href="#" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>
-                     Logística
-                    <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-
-                  <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="LOG-005.php" class="nav-link active">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Gestión de Almacenamiento de Muebles</p>
-                        </a>
-                      </li>
-
-                      <li class="nav-item">
-                        <a href="LOG-006.php" class="nav-link">
-                          <i class="fas fa-briefcase"></i>
-                            <p>Consulta de Almacenamiento de Muebles</p>
-                        </a>
-                      </li>
-              
-                        <li class="nav-item">
-                          <a href="LOG-008.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Gestión de Devoluciones de Muebles</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                          <a href="LOG-009.php" class="nav-link">
-                              <i class="fas fa-briefcase"></i>
-                                <p>Consulta del historial de devoluciones de Muebles</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-              </li>
-
-            </ul>
-          </li>
-          
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Extra Pages
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
+            <a href="OPS-001.php" class="nav-link active" style="background-color: #ADD8E6;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Ordenes de Servicio</p>
+              </a>
+            </li>
 
-      <!-- /.sidebar-menu -->
-    </div>
+            <li class="nav-item">
+            <a href="OPS-005.php" class="nav-link active" style="background-color: #ADD8E6;">
+                <i class="fas fa-briefcase"></i>
+                <p>Atención a las Observaciones de los OC</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="OPS-006.php" class="nav-link active" style="background-color: #ADD8E6;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de mantenimiento de vehículos</p>
+              </a>
+            </li>
+
+            <!-- Add other items as needed -->
+
+          </ul>
+        </li>
+
+        <li class="nav-item">
+        <a href="#" class="nav-link active" style="background-color: #fe0000">            <i class="far fa-circle nav-icon"></i>
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              Logística
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+
+          <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="LOG-001.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Vehículos e Inv.</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="LOG-002.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Asignación de Vehículos</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="LOG-003.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Generación de Ruta Opt.</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="LOG-004.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Registro de Recursos a Envío</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="LOG-005.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Almacenamiento de Muebles</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="LOG-006.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Historial de Almacenamiento</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="LOG-008.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Gestión de Devoluciones</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+            <a href="LOG-009.php" class="nav-link active" style="background-color: #ffdfd4;">
+                <i class="fas fa-briefcase"></i>
+                <p>Historial de Devoluciones</p>
+              </a>
+            </li>
+
+
+
+            <!-- Add other items as needed -->
+
+          </ul>
+        </li>
+
+      </ul>
+    </li>
+
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+          Extra Pages
+          <span class="right badge badge-danger">New</span>
+        </p>
+      </a>
+    </li>
+  </ul>
+</nav>
+<!-- /.sidebar-menu -->
+
     <!-- /.sidebar -->
   </aside>
 
@@ -447,16 +488,168 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-header -->
 
-
-    <!-- Main content -->
-<div class="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            <div class="col-sm-12">
+                <h1>Registro de Clientes</h1>
+                <h2 style="font-size: small;">Área Comercial y Ventas</h2>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+<!-- Main content -->
+<section class="content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- Tabla de Registro del Cliente con estilo -->
-                <h1>Registro del Cliente</h1>
-                <table class="styled-table">
-                <style>
+        <div class="row justify-content-center">
+            <div class="col-md">
+
+                <!-- Tarjeta de Registro del Cliente con estilo -->
+                <div class="card mx-auto" style="width: 75%;">
+                    <div class="card-body border border-primary border-3">
+                        <form method="post">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="nombre" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control mx-auto" id="nombre" name="nombre" style="width: 665px;">
+                            </div>
+                            <div class="col">
+                                <label for="apellido" class="form-label">Apellido:</label>
+                                <input type="text" class="form-control mx-auto" id="apellido" name="apellido" style="width: 665px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección:</label>
+                            <input type="text" class="form-control mx-auto" id="direccion" name="direccion" style="width: 1300px;">
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="RUC" class="form-label">RUC:</label>
+                                <input type="text" class="form-control mx-auto" id="RUC" name="RUC" style="width: 500px;">
+                            </div>
+                            <div class="col">
+                                <label for="celular" class="form-label">Celular:</label>
+                                <input type="text" class="form-control mx-auto" id="celular" name="celular" style="width: 500px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="correo" class="form-label">Correo:</label>
+                            <input type="text" class="form-control mx-auto" id="correo" name="correo" style="width: 1100px;">
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="DNI" class="form-label">DNI:</label>
+                                <input type="text" class="form-control mx-auto" id="DNI" name="DNI" style="width: 200px;">
+                            </div>
+                            <div class="col">
+                                <label for="estado" class="form-label">Estado:</label>
+                                <input type="text" class="form-control mx-auto" id="estado" name="estado" style="width: 200px;">
+                            </div>
+                        </div>
+
+
+                            <button class="btn btn-success" type="button" onclick="confirmarRegistro()">
+                                Agregar Cliente
+                            </button>
+
+                            <div id="confirmacion" style="display: none;">
+                                <p>¿Desea realmente agregar este cliente?</p>
+                                <button onclick="registrarCliente()">Sí</button>
+                                <button onclick="cancelarRegistro()">No</button>
+                            </div>
+                            <div id="exito" style="display: none;">
+                                <p>Cliente registrado con éxito.</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Fin de la Tarjeta de Registro del Cliente con estilo -->
+
+                <!-- Inicio de la Tabla de Registro del Cliente con estilo -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <!-- FILTRO PERSONALIZADO -->
+                        <form action="COMVE-001.php" method="post">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="nombre_busqueda">Nombre de Búsqueda:</label>
+                                        <input type="text" name="nombre_busqueda" id="nombre_busqueda" value="<?php echo isset($nombre_busqueda) ? $nombre_busqueda : ''; ?>">
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- ESPACIO PARA OTRO FILTRO -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <button id="submit" name="button" value="submit" class="btn btn-primary">Consultar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Fin de la Tabla de Registro del Cliente con estilo -->
+
+            
+
+
+                                        
+            <!-- /.card-header -->
+            <?php
+              $mysqli = new mysqli('127.0.0.1', 'root', '', 'h_933');
+
+              if ($mysqli->connect_error) {
+                  die('Error de Conexión (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
+              }
+
+              include("conexion/database.php");
+
+              $total_registros = 0;
+              $nombre_busqueda = "";  // Variable para almacenar el nombre de búsqueda
+
+              // Verificar si se ha enviado un formulario
+              if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["nombre_busqueda"])) {
+                $nombre_busqueda = $_POST["nombre_busqueda"];
+              }
+            
+
+              // Consulta SQL con filtro de nombre para la tabla de Cliente
+              $sql = "SELECT * FROM cliente WHERE nombre LIKE ?";
+              $stmt = $mysqli->prepare($sql);
+
+              if ($stmt) {
+                  // Agregar comodines para búsqueda parcial
+                  $nombre_parametro = "%" . $nombre_busqueda . "%";
+
+                  $stmt->bind_param("s", $nombre_parametro);
+                  
+                  $stmt->execute();
+                  $stmt->store_result();
+                  $total_registros = $stmt->num_rows;
+
+                  // Definir variables para todas las columnas de la tabla Clientes
+                  $ID_Cliente = $nombre = $apellido = $login = $clave = $direccion = $RUC = $fechasistema = $celular = $correo = $DNI = $estado = "";
+
+                  // Bindeo de resultados a variables
+                  $stmt->bind_result($ID_Cliente, $nombre, $apellido, $login, $clave, $direccion, $RUC, $fechasistema, $celular, $correo, $DNI, $estado);
+
+                }
+              ?>
+
+
+
+
+                  <style>
                   table {
                       width: 100%;
                       border-collapse: collapse;
@@ -474,67 +667,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       background-color: #3399FF; /* Color de fondo azul para los encabezados */
                       color: white; /* Color de texto blanco para los encabezados */
                   }
-              </style>
-    <!-- Aquí comienza el formulario para agregar una nueva orden en la tabla existente -->
-    <form method="post">
-        <table id="listado" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID_Cliente</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Dirección</th>
-                    <th>Fecha de Nac.</th>
-                    <th>Fecha Sistema</th>
-                    <th>Celular</th>
-                    <th>Correo</th>
-                    <th>DNI</th>
-                    <th>Estado</th>
-                    <th>Gestionar Registro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Nuevo</td>
-                    <td><input type="text" name="nombre"></td>
-                    <td><input type="text" name="apellido"></td>
-                    <td><input type="text" name="direccion"></td>
-                    <td><input type="text" name="fechanac" class="datepicker"></td>
-                    <td><?php echo date("Y-m-d H:i:s"); ?></td>
-                    <td><input type="text" name="celular"></td>
-                    <td><input type="text" name="correo"></td>
-                    <td><input type="text" name="DNI"></td>
-                    <td><input type="text" name="estado"></td>
-                    <td>
-                        <input type="button" value="Agregar Cliente" onclick="confirmarRegistro()">
-                    </td>
-                    <div id="confirmacion" style="display: none;">
-                        <p>¿Desea realmente agregar este cliente?</p>
-                        <button onclick="registrarCliente()">Sí</button>
-                        <button onclick="cancelarRegistro()">No</button>
-                    </div>
-                    <div id="exito" style="display: none;">
-                        <p>Cliente registrado con éxito.</p>
-                    </div>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-                <!-- Fin de la Tabla de Registro del Cliente con estilo -->
-                 
-                <!-- Botones "Guardar" y "Regresar" -->
-                <button id="regresarBtn">Regresar</button>
+                  </style>
+                    
+              
+            <div class="card">
+                <table id="listado" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Dirección</th>
+                        <th>RUC</th>
+                        <th>Celular</th>
+                        <th>Correo</th>
+                        <th>DNI</th>
+                        <th>Estado</th>
+                        <th>Gestionar</th>
+                    </tr>
+                      </thead>
+                  <tbody>
+                        <?php
+                        if ($total_registros > 0) { //Existen datos
+                            while ($stmt->fetch()) {
+                                ?>
+                                <tr>
+                                <td><?php echo htmlspecialchars($ID_Cliente); ?></td>
+                                <td><?php echo htmlspecialchars($nombre); ?></td>
+                                <td><?php echo htmlspecialchars($apellido); ?></td>
+                                <td><?php echo htmlspecialchars($direccion); ?></td>
+                                <td><?php echo htmlspecialchars($RUC); ?></td>
+                                <td><?php echo htmlspecialchars($celular); ?></td>
+                                <td><?php echo htmlspecialchars($correo); ?></td>
+                                <td><?php echo htmlspecialchars($DNI); ?></td>
+                                <td><?php echo htmlspecialchars($estado); ?></td>
+                                    <td class="text-center">
+                                        
+                                        <a class="btn btn-info btn-sm" href="COMVE-001-Editar.php?id=<?php echo $ID_Cliente; ?>" onclick="return confirm('¿Seguro que deseas editar este registro?')">
+                                            <i class="fas fa-pencil-alt"></i>
+                                            Editar
+                                        </a>
 
+                                        <a class="btn btn-danger btn-sm" href="COMVE-001-Eliminar.php?id=<?php echo $ID_Cliente; ?>" onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
+                                            <i class="fas fa-trash"></i>
+                                            Eliminar
+                                        </a>
 
-            </div>
-            <!-- /.col-md-12 -->
+                                    </td>
+                                </tr>
+                        <?php
+                            }
+                        } else { //No existen datos
+                            echo "<tr><td colspan=7>No existen registros</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+              </div>
+            <!-- /.col-md-8 -->
         </div>
         <!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
-<!-- /.content -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content 
 
-<!-- Agregar manejo de eventos al botón "Guardar"-->
+<! Agregar manejo de eventos al botón "Guardar"-->
 <script>
 function confirmarRegistro() {
     document.getElementById("confirmacion").style.display = "block";
@@ -550,20 +748,10 @@ function registrarCliente() {
     document.getElementById("confirmacion").style.display = "none";
     document.getElementById("exito").style.display = "block";
 }
-
-// Agregar manejo de eventos al botón "Regresar"
-document.getElementById('regresarBtn').addEventListener('click', function() {
-    // Redirigir a la página principal
-    window.location.href = "PaginaPrincipalUsuario.php";
-});
 </script>
 
 
 
-  </div>
-  <!-- /.content-wrapper -->
-
-  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
